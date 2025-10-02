@@ -7,7 +7,7 @@ def main():
     with open('dados.json') as json_data:
         dados = json.load(json_data)
 
-    # Análise para s(t)
+    # Análise para v(t)
     dados_vt = Dados(
         medidas=dados['medidas_para_v(t)'],
         erro_instrumental_distancia_cm=0.05,

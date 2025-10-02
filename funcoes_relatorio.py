@@ -118,7 +118,6 @@ def grafico(x, y, erro_x, erro_y, slope, erro_slope, intercept, erro_intercept, 
     plt.rcParams['text.usetex'] = True
     plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
     
-    # Formatando a legenda com valores arredondados para melhor visualização
     casas_decimais_slope = encontrar_casa_decimal(erro_slope)
     casas_decimais_intercept = encontrar_casa_decimal(erro_intercept)
     
@@ -127,9 +126,6 @@ def grafico(x, y, erro_x, erro_y, slope, erro_slope, intercept, erro_intercept, 
     intercept_rounded = round(intercept, casas_decimais_intercept)
     erro_intercept_rounded = round(erro_intercept, casas_decimais_intercept)
     
-    # A incerteza do ajuste pode ser estimada pelo erro padrão da regressão
-    # Para simplificar, vamos usar o erro dos pontos por enquanto.
-    # Idealmente, os erros no slope e intercept deveriam ser calculados.
     
     plt.plot(x, slope * x + intercept, color='red', label=f'Reta de Ajuste: $y = ({slope_rounded}\pm{erro_slope_rounded}) \cdot x + ({intercept_rounded}\pm{erro_intercept_rounded})$')
     plt.errorbar(x, y,
