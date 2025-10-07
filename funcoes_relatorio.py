@@ -3,69 +3,6 @@ import numpy as np
 from scipy import stats
 
 
-class Dados:
-    """
-    Classe para encapsular e calcular dados experimentais de distância e tempo.
-
-    A classe recebe uma lista de medições, calcula as médias de tempo,
-    e os erros estatísticos e totais para as medições de tempo e distância.
-
-    Attributes:
-        medidas (list): A lista de medições brutas.
-        qtd_medidas (int): A quantidade de medições.
-        distancias_cm (np.ndarray): Array com as distâncias em centímetros.
-        tempos_s_lista (list): Lista de listas com as medições de tempo em segundos.
-        tempos_s_mean (np.ndarray): Array com as médias dos tempos.
-        erro_instrumental_tempo_s (np.ndarray): Erro instrumental do cronômetro.
-        erro_estatistico_tempo_s (np.ndarray): Erro estatístico (desvio padrão da média) dos tempos.
-        erro_total_tempo_s (np.ndarray): Erro total propagado para o tempo.
-        erro_instrumental_distancia_cm (np.ndarray): Erro instrumental da régua.
-        erro_paralaxe_distancia_cm (np.ndarray): Erro de paralaxe na medição da distância.
-        erro_total_distancia_cm (np.ndarray): Erro total propagado para a distância.
-    """
-    def __init__(self, medidas, erro_instrumental_distancia_cm, erro_paralaxe_distancia_cm=0):
-        """
-        Inicializa o objeto Dados.
-
-        Args:
-            medidas (list): Lista de dicionários, onde cada dicionário contém
-                            'distancia_cm' (float) e 'tempos_s' (list de floats).
-            erro_instrumental_distancia_cm (float): O valor do erro instrumental
-                                                     para a medição de distância.
-            erro_paralaxe_distancia_cm (float, optional): O valor do erro de paralaxe.
-                                                          Default é 0.
-        """
-        self.medidas = medidas
-        self.qtd_medidas = len(medidas)
-        self.distancias_cm = np.array([m['distancia_cm'] for m in medidas])
-        self.tempos_s = np.array([np.mean(t) for t in [m['tempos_s'] for m in medidas]])
-        
-        # Erros
-        self.erro_instrumental_tempo_s = np.full(self.qtd_medidas, 0.001)
-        self.erro_estatistico_tempo_s = np.array([stats.sem(t) for t in [m['tempos_s'] for m in medidas]])
-        self.erro_total_tempo_s = np.sqrt(self.erro_instrumental_tempo_s**2 + self.erro_estatistico_tempo_s**2)
-        
-        self.erro_instrumental_distancia_cm = np.full(self.qtd_medidas, erro_instrumental_distancia_cm)
-        self.erro_paralaxe_distancia_cm = np.full(self.qtd_medidas, erro_paralaxe_distancia_cm)
-        self.erro_total_distancia_cm = np.sqrt(self.erro_instrumental_distancia_cm**2 + self.erro_paralaxe_distancia_cm**2)
-
-    def exibir_media_e_erro_tempos(self):
-        """Exibe as médias dos tempos e seus erros totais correspondentes.
-
-        Este método itera sobre as médias de tempo calculadas (`self.tempos_s`)
-        e seus respectivos erros totais (`self.erro_total_tempo_s`). Para cada
-        par de valores, determina o número correto de casas decimais com base
-        no primeiro dígito significativo do erro, usando a função auxiliar
-        `encontrar_casa_decimal`.
-
-        A média e o erro são então arredondados para essa precisão e exibidos
-        na saída padrão.
-        """
-
-        for media, erro in zip(self.tempos_s, self.erro_total_tempo_s):
-            casa_decimal = encontrar_casa_decimal(erro)
-            print(round(media, casa_decimal), round(erro, casa_decimal))
-
 def encontrar_casa_decimal(numero):
     """
     Encontra a posição da primeira casa decimal significativa de um número.

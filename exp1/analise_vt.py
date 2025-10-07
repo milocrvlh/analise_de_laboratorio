@@ -1,6 +1,6 @@
 import json
 from scipy import stats
-from funcoes_relatorio import Dados, grafico
+from exp1.funcoes_relatorio_old import Dados, grafico
 
 def main():
     # Ler os dados brutos
