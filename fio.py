@@ -82,17 +82,18 @@ def corda(valor_altura_fio, valores_diametro, valores_diferenca_dilatacao):
     )
 
     print(f"A área da seção reta em m^2 é {area_secao_reta_m2} com erro de {erro_area_secao_reta_m2}")
+    print(f"O coeficiente angular é {angular_st} e seu erro é de {erro_angular_st}")
 
 # fio A
-corda(
-    valor_altura_fio=435.0,
-    valores_diametro=[0.31,0.29,0.30,0.31,0.31,0.31,0.31,0.31,0.32,0.31,0.31,0.30,0.31,0.33,0.31,0.33,0.31,0.31],
-    valores_diferenca_dilatacao=[0.110, 0.220, 0.330, 0.440, 0.560]
-)
+# corda(
+#     valor_altura_fio=435.0,
+#     valores_diametro=[0.31,0.29,0.30,0.31,0.31,0.31,0.31,0.31,0.32,0.31,0.31,0.30,0.31,0.33,0.31,0.33,0.31,0.31],
+#     valores_diferenca_dilatacao=[0.110, 0.220, 0.330, 0.440, 0.560]
+# )
 
 # fio B
-# corda(
-#     valor_altura_fio=423.0,
-#     valores_diametro=[0.54, 0.53, 0.54, 0.535, 0.535],
-#     valores_diferenca_dilatacao=None
-# )
+corda(
+    valor_altura_fio=423.0,
+    valores_diametro=[0.54, 0.53, 0.54, 0.535, 0.535],
+    valores_diferenca_dilatacao=[0.110, 0.175, 0.240, 0.330, 0.440]
+)
